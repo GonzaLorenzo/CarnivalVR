@@ -10,7 +10,8 @@ public class ToyGun : XRGrabInteractable
 
     private Animator _gunAnimator;
     private AudioSource _audioSource;
-    private bool hasMagazine = false;
+    private bool _hasMagazine = false;
+    private bool _isCharged = false;
     [SerializeField] private GunSocket _gunSocket;
     private Magazine _magazine;
 
@@ -29,6 +30,7 @@ public class ToyGun : XRGrabInteractable
 
     [Header("AudioClips")]
     [SerializeField] private AudioClip _shootSound;
+    [SerializeField] private AudioClip _reloadSound;
     [SerializeField] private AudioClip _emptySound;
     
     private XRBaseController m_Controller;
@@ -60,7 +62,7 @@ public class ToyGun : XRGrabInteractable
     public void Shoot()
     {
         //_gunAnimator.SetTrigger("Fire");
-        if(hasMagazine && _magazine.IsLoaded())
+        if(_hasMagazine && _magazine.IsLoaded() && _isCharged)
         {
             _gunAnimator.Play("Fire");
             _magazine.Shoot();
@@ -79,6 +81,12 @@ public class ToyGun : XRGrabInteractable
         else
         {
             _audioSource.PlayOneShot(_emptySound);
+        }
+
+        if(!_magazine.IsLoaded())
+        {
+            _isCharged = false;
+            _gunAnimator.SetBool("NeedsCharge", true);
         }
         
     }
@@ -109,20 +117,39 @@ public class ToyGun : XRGrabInteractable
         //Destroy(tempCasing, destroyTimer);
     }
 
+    public void ChargeSlide()
+    {
+        if(_hasMagazine)
+        {
+            _isCharged = true;
+            _gunAnimator.SetBool("NeedsCharge", false);
+        }
+
+        if(_magazine.IsLoaded())
+        {
+            _magazine.Shoot();
+            CasingRelease();
+        }
+
+        _audioSource.PlayOneShot(_reloadSound);
+
+    }
+
     public void ReleaseMagazine(InputAction.CallbackContext context)
     {
-        if(hasMagazine)
+        if(_hasMagazine)
         {
             Debug.Log("Intentamos sacar el cargador");
             _gunSocket.ReleaseMagazine();
-            hasMagazine = false;
+            _hasMagazine = false;
         }
     }
 
     public void SetMagazine(Magazine magazine)
     {
         _magazine = magazine;
-        hasMagazine = true;
+        _hasMagazine = true;
+        _audioSource.PlayOneShot(_reloadSound);
     }
 
     public void SetPrimaryButtonEvent()
