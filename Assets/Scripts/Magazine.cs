@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Magazine : MonoBehaviour
@@ -35,5 +36,21 @@ public class Magazine : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void DisableCollider()
+    {
+        GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void ReActivateCollider()
+    {
+        StartCoroutine("ActivateCollider");
+    }
+
+    IEnumerator ActivateCollider()
+    {
+        yield return new WaitForSeconds(.2f);
+        GetComponent<BoxCollider>().enabled = true;
     }
 }

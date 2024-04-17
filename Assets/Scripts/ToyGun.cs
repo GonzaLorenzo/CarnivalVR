@@ -1,11 +1,17 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class ToyGun : MonoBehaviour
+public class ToyGun : XRGrabInteractable
 {
+    [Header("Input Actions")]
+    public InputActionReference leftPrimaryButton;
+    public InputActionReference rightPrimaryButton;
+
     private Animator _gunAnimator;
     private AudioSource _audioSource;
     private bool hasMagazine = false;
-    private GunSocket _gunSocket;
+    [SerializeField] private GunSocket _gunSocket;
     private Magazine _magazine;
 
     [Header("Prefabs")]
@@ -25,16 +31,36 @@ public class ToyGun : MonoBehaviour
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private AudioClip _emptySound;
     
+    private XRBaseController m_Controller;
+
     void Start()
     {
         _gunAnimator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
     }
 
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntered(args);
+        var controllerInteractor = args.interactorObject as XRBaseControllerInteractor;
+        m_Controller = controllerInteractor.xrController;
+        m_Controller.SendHapticImpulse(1, 0.5f);
+        Debug.Log(m_Controller);
+
+        SetPrimaryButtonEvent();
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+        leftPrimaryButton.action.started -= ReleaseMagazine;
+        rightPrimaryButton.action.started -= ReleaseMagazine;
+    }
+
     public void Shoot()
     {
         //_gunAnimator.SetTrigger("Fire");
-        if(hasMagazine || _magazine.IsLoaded())
+        if(hasMagazine && _magazine.IsLoaded())
         {
             _gunAnimator.Play("Fire");
             _magazine.Shoot();
@@ -75,23 +101,41 @@ public class ToyGun : MonoBehaviour
         { return; }
 
         GameObject casing;
-        casing = Instantiate(casingPrefab, _casingExitLocation.position, _casingExitLocation.rotation) as GameObject;
+        casing = Instantiate(casingPrefab, _casingExitLocation.position, _casingExitLocation.rotation);
 
-        //Add force on casing to push it out
         casing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(_casingEjectPower * 0.7f, _casingEjectPower), (_casingExitLocation.position - _casingExitLocation.right * 0.3f - _casingExitLocation.up * 0.6f), 1f);
-        //Add torque to make casing spin in random direction
         //casing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
 
         //Destroy(tempCasing, destroyTimer);
     }
 
-    public void ReleaseMagazine()
+    public void ReleaseMagazine(InputAction.CallbackContext context)
     {
-        _gunSocket.ReleaseMagazine();
+        if(hasMagazine)
+        {
+            Debug.Log("Intentamos sacar el cargador");
+            _gunSocket.ReleaseMagazine();
+            hasMagazine = false;
+        }
     }
 
     public void SetMagazine(Magazine magazine)
     {
         _magazine = magazine;
+        hasMagazine = true;
+    }
+
+    public void SetPrimaryButtonEvent()
+    {
+        if(m_Controller.name == "Right Controller")
+        {
+            leftPrimaryButton.action.started -= ReleaseMagazine;
+            rightPrimaryButton.action.started += ReleaseMagazine;
+        }
+        else if(m_Controller.name == "Left Controller")
+        {
+            rightPrimaryButton.action.started -= ReleaseMagazine;
+            leftPrimaryButton.action.started += ReleaseMagazine;
+        }    
     }
 }
