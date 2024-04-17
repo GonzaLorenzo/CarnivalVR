@@ -123,12 +123,11 @@ public class ToyGun : XRGrabInteractable
         {
             _isCharged = true;
             _gunAnimator.SetBool("NeedsCharge", false);
-        }
-
-        if(_magazine.IsLoaded())
-        {
-            _magazine.Shoot();
-            CasingRelease();
+            if(_magazine.IsLoaded())
+            {
+                _magazine.Shoot();
+                CasingRelease();
+            }
         }
 
         _audioSource.PlayOneShot(_reloadSound);
