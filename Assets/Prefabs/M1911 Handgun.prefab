@@ -883,7 +883,7 @@ Transform:
   m_GameObject: {fileID: 4360039182030918265}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000008146034, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0066, y: 0.0127, z: 0.0484}
+  m_LocalPosition: {x: 0.0066, y: 0.0127, z: 0.0319}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1326,6 +1326,7 @@ MonoBehaviour:
   rightPrimaryButton: {fileID: -7681552833220299955, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
   _gunSocket: {fileID: 4569270290228513361}
+  bulletPrefab: {fileID: 0}
   casingPrefab: {fileID: 4362657251999731927, guid: 4cb20e8abae957146a8b78e670d3fe74,
     type: 3}
   muzzleFlashPrefab: {fileID: 1782395880954752, guid: 3dd9cf2e209c504448f1c4c6835675cf,
@@ -1429,7 +1430,7 @@ Transform:
   m_GameObject: {fileID: 6520853744706479810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000001211166, y: 0.0941, z: -0.0135}
+  m_LocalPosition: {x: -0.00000001211166, y: 0.0941, z: -0.0234}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

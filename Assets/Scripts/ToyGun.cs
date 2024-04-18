@@ -8,6 +8,7 @@ public class ToyGun : XRGrabInteractable
     public InputActionReference leftPrimaryButton;
     public InputActionReference rightPrimaryButton;
 
+    private Rigidbody _rb;
     private Animator _gunAnimator;
     private AudioSource _audioSource;
     private bool _hasMagazine = false;
@@ -16,6 +17,7 @@ public class ToyGun : XRGrabInteractable
     private Magazine _magazine;
 
     [Header("Prefabs")]
+    public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public GameObject muzzleFlashPrefab;
     public GameObject oldSphere;
@@ -39,6 +41,7 @@ public class ToyGun : XRGrabInteractable
     {
         _gunAnimator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -77,6 +80,8 @@ public class ToyGun : XRGrabInteractable
 
                 Instantiate(oldSphere, hit.point, Quaternion.identity);
             }
+
+            //_rb.AddForceAtPosition(Vector3.up * 100, _shootPos.position, ForceMode.Impulse);
         }
         else
         {
@@ -115,6 +120,14 @@ public class ToyGun : XRGrabInteractable
         //casing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
 
         //Destroy(tempCasing, destroyTimer);
+    }
+
+    public void BulletRelease()
+    {
+        GameObject bullet;
+        bullet = Instantiate(bulletPrefab, _casingExitLocation.position, _casingExitLocation.rotation);
+
+        bullet.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(_casingEjectPower * 0.7f, _casingEjectPower), (_casingExitLocation.position - _casingExitLocation.right * 0.3f - _casingExitLocation.up * 0.6f), 1f);
     }
 
     public void ChargeSlide()
