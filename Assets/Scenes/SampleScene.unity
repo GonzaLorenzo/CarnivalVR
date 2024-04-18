@@ -2804,6 +2804,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3550519565525616435, guid: 13a005cc4f3d6fe4b89cc57147d08969,
+        type: 3}
+      propertyPath: m_InteractionManager
+      value: 
+      objectReference: {fileID: 170185219}
     - target: {fileID: 3903068926225077694, guid: 13a005cc4f3d6fe4b89cc57147d08969,
         type: 3}
       propertyPath: m_InteractionManager
@@ -2867,7 +2872,7 @@ PrefabInstance:
     - target: {fileID: 7310049091083952552, guid: 13a005cc4f3d6fe4b89cc57147d08969,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

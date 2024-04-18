@@ -138,7 +138,6 @@ public class ToyGun : XRGrabInteractable
     {
         if(_hasMagazine)
         {
-            Debug.Log("Intentamos sacar el cargador");
             _gunSocket.ReleaseMagazine();
             _hasMagazine = false;
         }
