@@ -69,6 +69,7 @@ public class ToyGun : XRGrabInteractable
         {
             _gunAnimator.Play("Fire");
             _magazine.Shoot();
+            _rb.AddForceAtPosition(Vector3.up * 1, _shootPos.position, ForceMode.Impulse);
 
             RaycastHit hit;
 
@@ -81,7 +82,7 @@ public class ToyGun : XRGrabInteractable
                 Instantiate(oldSphere, hit.point, Quaternion.identity);
             }
 
-            //_rb.AddForceAtPosition(Vector3.up * 100, _shootPos.position, ForceMode.Impulse);
+            //_rb.AddForceAtPosition(Vector3.up * 2, _shootPos.position, ForceMode.Impulse);
         }
         else
         {
