@@ -23,6 +23,7 @@ public class ToyGun : XRGrabInteractable
     public GameObject oldSphere;
 
     [Header("Settings")]
+    [SerializeField] private float _recoilForce;
     [SerializeField] private float _casingEjectPower = 150f;
     [SerializeField] private float _muzzleFlashTimer = 2f;
     
@@ -69,7 +70,7 @@ public class ToyGun : XRGrabInteractable
         {
             _gunAnimator.Play("Fire");
             _magazine.Shoot();
-            _rb.AddForceAtPosition(Vector3.up * 1, _shootPos.position, ForceMode.Impulse);
+            _rb.AddForceAtPosition(Vector3.up * _recoilForce, _shootPos.position, ForceMode.Force);
 
             RaycastHit hit;
 
