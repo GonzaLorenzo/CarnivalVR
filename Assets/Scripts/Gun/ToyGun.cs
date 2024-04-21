@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -19,8 +20,10 @@ public class ToyGun : XRGrabInteractable
     [Header("Prefabs")]
     public GameObject bulletPrefab;
     public GameObject casingPrefab;
-    public GameObject muzzleFlashPrefab;
+    public ParticleSystem muzzleFlashPrefab;
+    public ParticleSystem impactParticlePrefab;
     public GameObject oldSphere;
+    public TrailRenderer bulletTrail;
 
     [Header("Settings")]
     [SerializeField] private float _recoilForce;
@@ -79,6 +82,8 @@ public class ToyGun : XRGrabInteractable
 
                 Debug.DrawRay(hit.point, Vector3.up * 0.1f, Color.green, 0.5f);
 
+                TrailRenderer trail = Instantiate(bulletTrail, _shootPos.position, Quaternion.identity);
+                StartCoroutine(SpawnTrail(trail, hit));
                 //Instantiate(oldSphere, hit.point, Quaternion.identity);
                 IShootable target;
                 if(hit.transform.TryGetComponent<IShootable>(out target))
@@ -110,13 +115,32 @@ public class ToyGun : XRGrabInteractable
     public void Fire()
     {
         _audioSource.PlayOneShot(_shootSound);
-        if (muzzleFlashPrefab)
+        /* if (muzzleFlashPrefab)
         {
             GameObject tempFlash;
             tempFlash = Instantiate(muzzleFlashPrefab, _shootPos.position, _shootPos.rotation);
 
             Destroy(tempFlash, _muzzleFlashTimer);
+        } */
+        Instantiate(muzzleFlashPrefab, _shootPos.position, _shootPos.rotation);
+    }
+
+    private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
+    {
+        float time = 0;
+        Vector3 startPosition = trail.transform.position;
+
+        while (time < 1)
+        {
+            trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
+            time += Time.deltaTime / trail.time;
+
+            yield return null;
         }
+        trail.transform.position = hit.point;
+        Instantiate(impactParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+
+        Destroy(trail.gameObject, trail.time);
     }
 
     public void CasingRelease()

@@ -1329,10 +1329,15 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   casingPrefab: {fileID: 4362657251999731927, guid: 4cb20e8abae957146a8b78e670d3fe74,
     type: 3}
-  muzzleFlashPrefab: {fileID: 1782395880954752, guid: 3dd9cf2e209c504448f1c4c6835675cf,
+  muzzleFlashPrefab: {fileID: 3998415687332699799, guid: f06eda730ac75154299b19036768e68c,
+    type: 3}
+  impactParticlePrefab: {fileID: 5817189546873595375, guid: 33183e224a387f24994c3ed023be34da,
     type: 3}
   oldSphere: {fileID: 8893799422468548047, guid: d31380097fba8cb4c9af1f04f6499982,
     type: 3}
+  bulletTrail: {fileID: 4336211491168057146, guid: cfe38754f4bf69a4b921cfbcc4450f30,
+    type: 3}
+  _recoilForce: 20
   _casingEjectPower: 150
   _muzzleFlashTimer: 2
   _shootPos: {fileID: 7726114421613586025}
