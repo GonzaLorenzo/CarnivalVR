@@ -18,11 +18,11 @@ public class ToyGun : XRGrabInteractable
     private Magazine _magazine;
 
     [Header("Prefabs")]
+    public LineRenderer laserSight;
     public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public ParticleSystem muzzleFlashPrefab;
     public ParticleSystem impactParticlePrefab;
-    public GameObject oldSphere;
     public TrailRenderer bulletTrail;
 
     [Header("Settings")]
@@ -32,6 +32,7 @@ public class ToyGun : XRGrabInteractable
     
     [Header("Location Refrences")]
     [SerializeField] private Transform _shootPos;
+    [SerializeField] private Transform _laserSightPos;
     [SerializeField] private Transform _casingExitLocation;
 
     [Header("AudioClips")]
@@ -47,15 +48,29 @@ public class ToyGun : XRGrabInteractable
         _audioSource = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
     }
+    
+    void Update()
+    {
+        laserSight.SetPosition(0, _laserSightPos.localPosition);
+        Debug.Log(laserSight.GetPosition(0));
+        RaycastHit hit;
+        if (Physics.Raycast(_shootPos.localPosition, _shootPos.forward, out hit, 100))
+        {
+                
+            laserSight.SetPosition(1, hit.point);
+        }
+    }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
+
         var controllerInteractor = args.interactorObject as XRBaseControllerInteractor;
         m_Controller = controllerInteractor.xrController;
         m_Controller.SendHapticImpulse(1, 0.5f);
 
         SetPrimaryButtonEvent();
+        laserSight.enabled = true;
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -63,6 +78,8 @@ public class ToyGun : XRGrabInteractable
         base.OnSelectExited(args);
         leftPrimaryButton.action.started -= ReleaseMagazine;
         rightPrimaryButton.action.started -= ReleaseMagazine;
+        
+        laserSight.enabled = false;
     }
 
     public void Shoot()
@@ -76,7 +93,7 @@ public class ToyGun : XRGrabInteractable
 
             RaycastHit hit;
 
-            if (Physics.Raycast(_shootPos.position, _shootPos.forward, out hit, 1000))
+            if (Physics.Raycast(_shootPos.position, _shootPos.forward, out hit, 100))
             {
                 Debug.DrawRay(_shootPos.position, _shootPos.forward * hit.distance, Color.red, 0.5f);
 
@@ -88,12 +105,7 @@ public class ToyGun : XRGrabInteractable
                 IShootable target;
                 if(hit.transform.TryGetComponent<IShootable>(out target))
                 {
-                    Debug.Log("Encontré");
                     target.GetShot();
-                }
-                else
-                {
-                    Debug.Log("No encontré");
                 }
             }
 

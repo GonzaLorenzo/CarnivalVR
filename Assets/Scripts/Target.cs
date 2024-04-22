@@ -6,6 +6,7 @@ public class Target : MonoBehaviour, IShootable
 {
     private Animator _animator;
     private bool wasShot = false;
+    private bool isEnabled = false;
 
     void Start()
     {
@@ -15,12 +16,17 @@ public class Target : MonoBehaviour, IShootable
     public void Enable()
     {
         _animator.SetBool("IsEnabled", true);
+        isEnabled = true;
     }
 
     public void GetShot()
     {
-        _animator.SetBool("WasShot", true);
-        wasShot = true;
+        if(isEnabled)
+        {
+            _animator.SetBool("WasShot", true);
+            wasShot = true;
+            isEnabled = false;
+        }
     }
 
     public void Disable()
@@ -28,6 +34,7 @@ public class Target : MonoBehaviour, IShootable
         if(!wasShot)
         {
             _animator.SetBool("IsEnabled", false);
+            isEnabled = false;
         }
     }
 
