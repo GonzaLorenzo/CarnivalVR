@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 55498164}
   - component: {fileID: 55498163}
   - component: {fileID: 55498165}
+  - component: {fileID: 55498166}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -398,6 +399,18 @@ MonoBehaviour:
   _mediumTimeline: {fileID: 11400000, guid: 65456e2cff102084892c9dbd05a56524, type: 2}
   _hardTimeline: {fileID: 11400000, guid: 65456e2cff102084892c9dbd05a56524, type: 2}
   _difficultySlider: {fileID: 1773735854}
+--- !u!114 &55498166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55498162}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d9ae1ef1f55bf4297db030bb6b7bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &66702309
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,7 +3540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_System: {fileID: 1347237873}
-  m_MoveSpeed: 5
+  m_MoveSpeed: 3
   m_EnableStrafe: 1
   m_EnableFly: 0
   m_UseGravity: 1
