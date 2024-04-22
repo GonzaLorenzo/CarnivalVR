@@ -63,6 +63,8 @@ public class ToyGun : XRGrabInteractable
     {
         base.OnSelectEntered(args);
 
+        SetParentToXRRig();
+
         var controllerInteractor = args.interactorObject as XRBaseControllerInteractor;
         m_Controller = controllerInteractor.xrController;
         m_Controller.SendHapticImpulse(1, 0.5f);
@@ -74,6 +76,9 @@ public class ToyGun : XRGrabInteractable
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
+
+        SetParentToWorld();
+
         leftPrimaryButton.action.started -= ReleaseMagazine;
         rightPrimaryButton.action.started -= ReleaseMagazine;
         
@@ -220,5 +225,15 @@ public class ToyGun : XRGrabInteractable
             rightPrimaryButton.action.started -= ReleaseMagazine;
             leftPrimaryButton.action.started += ReleaseMagazine;
         }    
+    }
+
+    public void SetParentToXRRig()
+    {
+        transform.SetParent(selectingInteractor.transform);
+    }
+ 
+    public void SetParentToWorld()
+    {
+        transform.SetParent(null);
     }
 }
