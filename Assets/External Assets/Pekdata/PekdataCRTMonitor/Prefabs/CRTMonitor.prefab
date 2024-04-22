@@ -10385,10 +10385,10 @@ MonoBehaviour:
   screenExplosionParticleSystem: {fileID: 1933960111588844}
   screenOff: {fileID: 1503309550545730}
   screenOn: {fileID: 1301780834733650}
+  screenOnMedium: {fileID: 0}
+  screenOnHard: {fileID: 0}
   shards: {fileID: 1279047784018206}
-  easyTexture: {fileID: 0}
-  mediumTexture: {fileID: 0}
-  hardTexture: {fileID: 0}
+  _difficultySlider: {fileID: 0}
 --- !u!1 &1709236654553450
 GameObject:
   m_ObjectHideFlags: 0

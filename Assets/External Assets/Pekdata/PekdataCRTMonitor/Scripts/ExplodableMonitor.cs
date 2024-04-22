@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using Unity.XRContent.Interaction;
 
 public class ExplodableMonitor : MonoBehaviour, IShootable
 {
@@ -20,9 +19,12 @@ public class ExplodableMonitor : MonoBehaviour, IShootable
     private bool broken;
 
     [Header("Difficulty")]
-    public Image easyTexture;
-    public Image mediumTexture;
-    public Image hardTexture;
+    [SerializeField] private XRSlider _difficultySlider;
+
+    void Start()
+    {
+        _difficultySlider.onDifficultyChanged += ChangeDifficulty;
+    }
 
     public void Enable()
     {
@@ -50,8 +52,27 @@ public class ExplodableMonitor : MonoBehaviour, IShootable
         }
     }
 
-    public void ChangeDifficulty()
+    public void ChangeDifficulty(string difficulty)
     {
+        switch(difficulty)    
+            {
+                case "easy":
+                    screenOn.SetActive(true);
+                    screenOnMedium.SetActive(false);
+                    screenOnHard.SetActive(false);
+                    break;
 
+                case "medium":
+                    screenOn.SetActive(false);
+                    screenOnMedium.SetActive(true);
+                    screenOnHard.SetActive(false);
+                    break;
+
+                case "hard":
+                    screenOn.SetActive(false);
+                    screenOnMedium.SetActive(false);
+                    screenOnHard.SetActive(true);
+                    break;
+                }
     }
 }

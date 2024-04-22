@@ -52,7 +52,7 @@ public class ToyGun : XRGrabInteractable
     void Update()
     {
         laserSight.SetPosition(0, _laserSightPos.localPosition);
-        Debug.Log(laserSight.GetPosition(0));
+        //Debug.Log(laserSight.GetPosition(0));
         RaycastHit hit;
         if (Physics.Raycast(_shootPos.localPosition, _shootPos.forward, out hit, 100))
         {
