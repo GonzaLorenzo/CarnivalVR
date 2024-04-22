@@ -18,7 +18,7 @@ public class ToyGun : XRGrabInteractable
     private Magazine _magazine;
 
     [Header("Prefabs")]
-    public LineRenderer laserSight;
+    [SerializeField] private LineRenderer _laserRenderer;
     public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public ParticleSystem muzzleFlashPrefab;
@@ -28,7 +28,7 @@ public class ToyGun : XRGrabInteractable
     [Header("Settings")]
     [SerializeField] private float _recoilForce;
     [SerializeField] private float _casingEjectPower = 150f;
-    [SerializeField] private float _muzzleFlashTimer = 2f;
+    [SerializeField] LayerMask _laserLayerMask;
     
     [Header("Location Refrences")]
     [SerializeField] private Transform _shootPos;
@@ -51,13 +51,11 @@ public class ToyGun : XRGrabInteractable
     
     void Update()
     {
-        laserSight.SetPosition(0, _laserSightPos.localPosition);
-        //Debug.Log(laserSight.GetPosition(0));
         RaycastHit hit;
-        if (Physics.Raycast(_shootPos.localPosition, _shootPos.forward, out hit, 100))
+        _laserRenderer.SetPosition(0, _laserSightPos.position);
+        if (Physics.Raycast(_shootPos.position, transform.forward, out hit, 30, _laserLayerMask))
         {
-                
-            laserSight.SetPosition(1, hit.point);
+            _laserRenderer.SetPosition(1, hit.point);
         }
     }
 
@@ -70,7 +68,7 @@ public class ToyGun : XRGrabInteractable
         m_Controller.SendHapticImpulse(1, 0.5f);
 
         SetPrimaryButtonEvent();
-        laserSight.enabled = true;
+        _laserRenderer.enabled = true;
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -79,7 +77,7 @@ public class ToyGun : XRGrabInteractable
         leftPrimaryButton.action.started -= ReleaseMagazine;
         rightPrimaryButton.action.started -= ReleaseMagazine;
         
-        laserSight.enabled = false;
+        _laserRenderer.enabled = false;
     }
 
     public void Shoot()

@@ -3120,7 +3120,7 @@ GameObject:
   - component: {fileID: 979468955}
   - component: {fileID: 979468957}
   - component: {fileID: 979468956}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Left Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3660,7 +3660,7 @@ GameObject:
   - component: {fileID: 1152322566}
   - component: {fileID: 1152322568}
   - component: {fileID: 1152322567}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Right Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7434,7 +7434,7 @@ PrefabInstance:
     - target: {fileID: 4978582716621441124, guid: bd3e997ffa5b8f74b879c318c3f87d4b,
         type: 3}
       propertyPath: m_Value
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4978582716621441124, guid: bd3e997ffa5b8f74b879c318c3f87d4b,
         type: 3}
@@ -7514,7 +7514,7 @@ PrefabInstance:
     - target: {fileID: 6327364711210294973, guid: bd3e997ffa5b8f74b879c318c3f87d4b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.42399997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

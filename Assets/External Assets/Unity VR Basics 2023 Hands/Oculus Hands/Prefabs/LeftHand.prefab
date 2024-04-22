@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 7072478885652658473}
   - component: {fileID: 7415120119525622001}
   - component: {fileID: 7185806734071116427}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
