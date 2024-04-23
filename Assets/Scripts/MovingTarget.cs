@@ -34,6 +34,7 @@ public class MovingTarget : MonoBehaviour, IShootable
     public void Enable()
     {
         isEnabled = true;
+        ResetAnimatorBools();
     }
 
     public void GetShot()
@@ -48,9 +49,13 @@ public class MovingTarget : MonoBehaviour, IShootable
 
     public void ResetTarget()
     {
+        Debug.Log("me resetearon");
+        
         isEnabled = false;
+        _rb.velocity = Vector3.zero;
+        Debug.Log(isEnabled);
         _animator.SetBool("IsReset", true);
-        ResetAnimatorBools();
+        _animator.SetBool("WasShot", false);
         transform.position = startingPosition;
     }
 

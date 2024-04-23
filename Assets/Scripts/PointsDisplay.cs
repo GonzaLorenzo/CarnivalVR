@@ -26,10 +26,12 @@ public class PointsDisplay : MonoBehaviour
         if(!_isReloading)
         {
             _pointsText.text = "RELOAD!";
+            _isReloading = true;
         }   
         else
         {
             _pointsText.text = _points + " PTS";
+            _isReloading = false;
         }
     }
 }

@@ -26,6 +26,7 @@ public class Target : MonoBehaviour, IShootable
         if(isEnabled)
         {
             _animator.SetBool("WasShot", true);
+            _animator.SetBool("IsEnabled", false);
             wasShot = true;
             isEnabled = false;
             _gameManager.AddPoints(_pointsValue);
