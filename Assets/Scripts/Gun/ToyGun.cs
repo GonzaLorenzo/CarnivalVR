@@ -111,8 +111,6 @@ public class ToyGun : XRGrabInteractable
                     target.GetShot();
                 }
             }
-
-            //_rb.AddForceAtPosition(Vector3.up * 2, _shootPos.position, ForceMode.Impulse);
         }
         else
         {
@@ -160,19 +158,13 @@ public class ToyGun : XRGrabInteractable
 
     public void CasingRelease()
     {
-        if (!_casingExitLocation || !casingPrefab)
-        { return; }
-
         GameObject casing;
         casing = Instantiate(casingPrefab, _casingExitLocation.position, _casingExitLocation.rotation);
-
+        
         casing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(_casingEjectPower * 0.7f, _casingEjectPower), (_casingExitLocation.position - _casingExitLocation.right * 0.3f - _casingExitLocation.up * 0.6f), 1f);
-        //casing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
-
-        //Destroy(tempCasing, destroyTimer);
     }
 
-    public void BulletRelease()
+    private void BulletRelease()
     {
         GameObject bullet;
         bullet = Instantiate(bulletPrefab, _casingExitLocation.position, _casingExitLocation.rotation);
@@ -184,17 +176,18 @@ public class ToyGun : XRGrabInteractable
     {
         if(_hasMagazine)
         {
-            _isCharged = true;
             _gunAnimator.SetBool("NeedsCharge", false);
-            if(_magazine.IsLoaded())
+            
+            if(_isCharged && _magazine.IsLoaded())
             {
                 _magazine.Shoot();
-                CasingRelease();
+                BulletRelease();
             }
+
+            _isCharged = true;
         }
 
         _audioSource.PlayOneShot(_reloadSound);
-
     }
 
     public void ReleaseMagazine(InputAction.CallbackContext context)

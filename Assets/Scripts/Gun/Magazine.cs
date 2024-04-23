@@ -7,16 +7,6 @@ public class Magazine : MonoBehaviour
 
     [SerializeField] private GameObject _bullets;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     public void Shoot()
     {
         _ammo--;
@@ -26,16 +16,14 @@ public class Magazine : MonoBehaviour
         }
     }
 
+    public bool isFull()
+    {
+        return _ammo == 12 ? true : false;
+    }
+
     public bool IsLoaded()
     {
-        if(_ammo > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _ammo > 0 ? true : false;
     }
 
     public void DisableCollider()

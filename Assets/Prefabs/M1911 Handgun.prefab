@@ -546,13 +546,13 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.05
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.02040863
-        value: 0.0723629
+        time: 0.008746356
+        value: 0.0855208
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1496,7 +1496,8 @@ MonoBehaviour:
     type: 3}
   _gunSocket: {fileID: 4569270290228513361}
   _laserRenderer: {fileID: 5195234972501816533}
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 1122964723992546, guid: 674adf642abf5614aae2995443c8250f,
+    type: 3}
   casingPrefab: {fileID: 4362657251999731927, guid: 4cb20e8abae957146a8b78e670d3fe74,
     type: 3}
   muzzleFlashPrefab: {fileID: 3998415687332699799, guid: f06eda730ac75154299b19036768e68c,

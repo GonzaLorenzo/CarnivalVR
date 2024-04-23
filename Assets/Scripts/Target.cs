@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Target : MonoBehaviour, IShootable
 {
+    [SerializeField] GameManager _gameManager;
+    [SerializeField] private int _pointsValue;
     private Animator _animator;
     private bool wasShot = false;
     private bool isEnabled = false;
@@ -26,6 +28,7 @@ public class Target : MonoBehaviour, IShootable
             _animator.SetBool("WasShot", true);
             wasShot = true;
             isEnabled = false;
+            _gameManager.AddPoints(_pointsValue);
         }
     }
 

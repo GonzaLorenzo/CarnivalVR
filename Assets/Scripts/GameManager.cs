@@ -5,6 +5,9 @@ using UnityEngine.Timeline;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void PointsUpdateDelegate(int points);
+    public PointsUpdateDelegate onPointsUpdate;
+
     private PlayableDirector _playableDirector;
 
     [SerializeField] private TimelineAsset _easyTimeline;
@@ -13,15 +16,27 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private XRSlider _difficultySlider;
 
+    private int _points;
+
     void Start()
     {
         _playableDirector = GetComponent<PlayableDirector>();
         _difficultySlider.onDifficultyChanged += ChangeDifficulty;
     }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            _playableDirector.playableAsset = _mediumTimeline;
+            _playableDirector.Play();
+        }
+    }
+
     public void PlayTimeline()
     {
         _playableDirector.Play();
+        _points = 0;
     }
 
     public void ChangeDifficulty(string difficulty)
@@ -40,5 +55,11 @@ public class GameManager : MonoBehaviour
                 _playableDirector.playableAsset = _hardTimeline;
                 break;
         }
+    }
+
+    public void AddPoints(int points)
+    {
+        _points +=  points;
+        onPointsUpdate.Invoke(_points);
     }
 }
