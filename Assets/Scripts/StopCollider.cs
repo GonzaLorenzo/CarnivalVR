@@ -6,6 +6,6 @@ public class StopCollider : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<MovingTarget>().StopMoving();
+        other.GetComponent<MovingTarget>().ResetTarget();
     }
 }

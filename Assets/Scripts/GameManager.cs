@@ -24,15 +24,6 @@ public class GameManager : MonoBehaviour
         _difficultySlider.onDifficultyChanged += ChangeDifficulty;
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            _playableDirector.playableAsset = _mediumTimeline;
-            _playableDirector.Play();
-        }
-    }
-
     public void PlayTimeline()
     {
         _playableDirector.Play();

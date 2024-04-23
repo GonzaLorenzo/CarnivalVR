@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovingTarget : MonoBehaviour, IShootable
 {
-    
+    private Vector3 startingPosition;
     [SerializeField] GameManager _gameManager;
     [SerializeField] private int _pointsValue;
     [SerializeField] private int _speed;
@@ -16,15 +16,18 @@ public class MovingTarget : MonoBehaviour, IShootable
 
     void Start()
     {
+        startingPosition = transform.position;
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(isEnabled)
         {
-            _rb.MovePosition(_movementDirection * _speed);
+            Vector3 direction = _movementDirection * _speed * Time.deltaTime;
+
+            _rb.velocity = direction;
         }
     }
 
@@ -35,7 +38,7 @@ public class MovingTarget : MonoBehaviour, IShootable
 
     public void GetShot()
     {
-        if(wasShot)
+        if(!wasShot)
         {
             _animator.SetBool("WasShot", true);
             wasShot = true;
@@ -43,11 +46,12 @@ public class MovingTarget : MonoBehaviour, IShootable
         }
     }
 
-    public void StopMoving()
+    public void ResetTarget()
     {
         isEnabled = false;
         _animator.SetBool("IsReset", true);
         ResetAnimatorBools();
+        transform.position = startingPosition;
     }
 
     private void ResetAnimatorBools()
