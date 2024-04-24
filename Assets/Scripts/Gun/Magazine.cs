@@ -3,9 +3,15 @@ using UnityEngine;
 
 public class Magazine : MonoBehaviour
 {
-    private int _ammo = 12;
+    private int _ammo = 15;
+    [SerializeField] private MagazineManager _manager;
 
     [SerializeField] private GameObject _bullets;
+
+    void Start()
+    {
+        _manager.AddMagazine(this, transform.position);
+    }
 
     public void Shoot()
     {
@@ -18,12 +24,20 @@ public class Magazine : MonoBehaviour
 
     public bool isFull()
     {
-        return _ammo == 12 ? true : false;
+        return _ammo == 15 ? true : false;
     }
 
     public bool IsLoaded()
     {
-        return _ammo > 0 ? true : false;
+        if(_ammo > 0)
+        {
+            return true;
+        }
+        else
+        {
+            _manager.MagazineEmptied(this);
+            return false;     
+        }
     }
 
     public void DisableCollider()
