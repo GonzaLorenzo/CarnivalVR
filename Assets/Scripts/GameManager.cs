@@ -26,8 +26,11 @@ public class GameManager : MonoBehaviour
 
     public void PlayTimeline()
     {
-        _playableDirector.Play();
-        _points = 0;
+        if(_playableDirector.state != PlayState.Playing)
+        {
+            _playableDirector.Play();
+            _points = 0;
+        }
     }
 
     public void ChangeDifficulty(string difficulty)
