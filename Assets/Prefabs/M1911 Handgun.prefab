@@ -842,7 +842,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7433584514767235225}
   - component: {fileID: 2839868684066019028}
-  - component: {fileID: 3903068926225077694}
   - component: {fileID: 4569270290228513361}
   m_Layer: 0
   m_Name: Magazine_Location
@@ -888,7 +887,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.024862383
   m_Center: {x: 0, y: -1.1524892e-11, z: -0.004862383}
---- !u!114 &3903068926225077694
+--- !u!114 &4569270290228513361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -897,7 +896,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3356990557696987397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Script: {fileID: 11500000, guid: eec4874be87b2fb47b8a5b4077614f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -905,7 +904,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 2
+    m_Bits: 4294967295
   m_AttachTransform: {fileID: 8841665279543959624}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -960,19 +959,9 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
---- !u!114 &4569270290228513361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3356990557696987397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec4874be87b2fb47b8a5b4077614f48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  magazineTag: Magazine
   _gunParent: {fileID: 3550519565525616435}
+  _gunSocket: {fileID: 4569270290228513361}
 --- !u!1 &3522207796187166324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1304,6 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders:
   - {fileID: 8604386943094487780}
-  - {fileID: 5001402508711602330}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295

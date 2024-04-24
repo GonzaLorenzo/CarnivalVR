@@ -17,6 +17,7 @@ public class Target : MonoBehaviour, IShootable
 
     public void Enable()
     {
+        _animator.SetBool("WasShot", false);
         _animator.SetBool("IsEnabled", true);
         isEnabled = true;
     }
@@ -38,14 +39,8 @@ public class Target : MonoBehaviour, IShootable
         if(!wasShot)
         {
             _animator.SetBool("IsEnabled", false);
+            _animator.SetBool("WasShot", false);
             isEnabled = false;
         }
-    }
-
-    private void ResetAnimatorBools()
-    {
-        wasShot = false;
-        _animator.SetBool("WasShot", false);
-        _animator.SetBool("IsEnabled", false);
     }
 }

@@ -544,7 +544,7 @@ GameObject:
   - component: {fileID: 4820828223193349968}
   m_Layer: 7
   m_Name: M1911 Magazine
-  m_TagString: Untagged
+  m_TagString: Magazine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

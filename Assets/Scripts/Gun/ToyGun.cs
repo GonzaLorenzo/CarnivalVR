@@ -91,6 +91,7 @@ public class ToyGun : XRGrabInteractable
         if(_hasMagazine && _magazine.IsLoaded() && _isCharged)
         {
             _gunAnimator.Play("Fire");
+            
             _magazine.Shoot();
             _rb.AddForceAtPosition(Vector3.up * _recoilForce, _shootPos.position, ForceMode.Force);
 
@@ -135,6 +136,7 @@ public class ToyGun : XRGrabInteractable
 
             Destroy(tempFlash, _muzzleFlashTimer);
         } */
+        m_Controller.SendHapticImpulse(.4f, 0.12f);
         Instantiate(muzzleFlashPrefab, _shootPos.position, _shootPos.rotation);
     }
 

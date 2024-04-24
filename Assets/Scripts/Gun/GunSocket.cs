@@ -1,19 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-public class GunSocket : MonoBehaviour
+public class GunSocket : XRSocketInteractor
 {
+    public string magazineTag;
     [SerializeField] private ToyGun _gunParent;
-    private XRSocketInteractor _gunSocket;
-
-    void Start()
-    {
-        _gunSocket = GetComponent<XRSocketInteractor>();
-    }
 
     public void SendMagazineReference()
     {
-        IXRSelectInteractable socketMagazine = _gunSocket.GetOldestInteractableSelected();
+        IXRSelectInteractable socketMagazine = this.GetOldestInteractableSelected();
         Magazine magazine = socketMagazine.transform.GetComponent<Magazine>();
         if(magazine != null)
         {
@@ -22,28 +17,32 @@ public class GunSocket : MonoBehaviour
         }
         else
         {
-            IXRSelectInteractable nullMagazine = _gunSocket.GetOldestInteractableSelected();
-            _gunSocket.interactionManager.SelectExit(_gunSocket, nullMagazine);
+            IXRSelectInteractable nullMagazine = this.GetOldestInteractableSelected();
+            interactionManager.SelectExit(this, nullMagazine);
         }
         
     }
 
     public void ReleaseMagazine()
     {
-        IXRSelectInteractable socketMagazine = _gunSocket.GetOldestInteractableSelected();
-        //_gunSocket.GetComponent<SphereCollider>().enabled = false;
-        _gunSocket.interactionManager.SelectExit(_gunSocket, socketMagazine);
+        IXRSelectInteractable socketMagazine = this.GetOldestInteractableSelected();
+        //this.GetComponent<SphereCollider>().enabled = false;
+        interactionManager.SelectExit(this, socketMagazine);
         socketMagazine.transform.GetComponent<Magazine>().ReActivateCollider();
         //StartCoroutine("ActivateSocket");
     }
 
     
-    IEnumerator ActivateSocket()
+    /* IEnumerator ActivateSocket()
     {
         yield return new WaitForSeconds(5f);
-        _gunSocket.GetComponent<SphereCollider>().enabled = true;
-    }
+        GetComponent<SphereCollider>().enabled = true;
+    } */
 
+    public override bool CanSelect(IXRSelectInteractable interactable)
+    {
+        return base.CanSelect(interactable) && interactable.transform.CompareTag(magazineTag);
+    }
 }
 
 

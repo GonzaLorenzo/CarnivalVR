@@ -48,12 +48,9 @@ public class MovingTarget : MonoBehaviour, IShootable
     }
 
     public void ResetTarget()
-    {
-        Debug.Log("me resetearon");
-        
+    {  
         isEnabled = false;
         _rb.velocity = Vector3.zero;
-        Debug.Log(isEnabled);
         _animator.SetBool("IsReset", true);
         _animator.SetBool("WasShot", false);
         transform.position = startingPosition;
