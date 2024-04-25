@@ -19,7 +19,6 @@ public class ToyGun : XRGrabInteractable
 
     [Header("Prefabs")]
     [SerializeField] private LineRenderer _laserRenderer;
-    public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public ParticleSystem muzzleFlashPrefab;
     public ParticleSystem impactParticlePrefab;
@@ -164,14 +163,8 @@ public class ToyGun : XRGrabInteractable
         casing = Instantiate(casingPrefab, _casingExitLocation.position, _casingExitLocation.rotation);
         
         casing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(_casingEjectPower * 0.7f, _casingEjectPower), (_casingExitLocation.position - _casingExitLocation.right * 0.3f - _casingExitLocation.up * 0.6f), 1f);
-    }
 
-    private void BulletRelease()
-    {
-        GameObject bullet;
-        bullet = Instantiate(bulletPrefab, _casingExitLocation.position, _casingExitLocation.rotation);
-
-        bullet.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(_casingEjectPower * 0.7f, _casingEjectPower), (_casingExitLocation.position - _casingExitLocation.right * 0.3f - _casingExitLocation.up * 0.6f), 1f);
+        Destroy(casing, 2.5f);
     }
 
     public void ChargeSlide()
@@ -183,7 +176,7 @@ public class ToyGun : XRGrabInteractable
             if(_isCharged && _magazine.IsLoaded())
             {
                 _magazine.Shoot();
-                BulletRelease();
+                CasingRelease();
             }
 
             _isCharged = true;

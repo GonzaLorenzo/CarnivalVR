@@ -10,6 +10,7 @@ public class Magazine : MonoBehaviour
 
     void Start()
     {
+        _manager = GameObject.Find("GameManager").GetComponent<MagazineManager>();
         _manager.AddMagazine(this, transform.position);
     }
 
